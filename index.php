@@ -12,60 +12,74 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
     <title>Data Mahasiswa</title>
     <link href="../bootstrap-5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .mx-auto {
-            width: 800px
+        .container {
+            margin-top: 20px;
         }
 
-        .card {
-            margin-top: 10px;
+        .btn-actions button {
+            margin-right: 5px;
+        }
+
+        .table {
+            margin-top: 15px;
         }
     </style>
 </head>
 
 <body>
-    <div class="col-12">
-        <a href="tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
-    </div>
+    <div class="container">
+        <!-- Tombol Tambah Data -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Data Mahasiswa</h1>
+            <a href="tambah.php" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Tambah Data
+            </a>
+        </div>
 
-    <div class="">
-        <!-- untuk mengeluarkan data -->
+        <!-- Tabel Data Mahasiswa -->
         <div class="card">
-            <div class="card-header text-white bg-secondary">
-                Data Mahasiswa
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Daftar Mahasiswa</h5>
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark text-center">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">NIM</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Fakultas</th>
-                            <th scope="col" class="text-center">Aksi</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $urut = 1; ?>
                         <?php foreach ($mahasiswa as $row) : ?>
                             <tr>
-                                <th scope="row"><?php echo $urut++; ?></th>
-                                <td scope="row"><?php echo $row['nim'] ?></td>
-                                <td scope="row"><?php echo $row['nama'] ?></td>
-                                <td scope="row"><?php echo $row['alamat'] ?></td>
-                                <td scope="row"><?php echo $row['fakultas'] ?></td>
-                                <td scope="row" class="text-center">
-                                    <a href="edit.php?id=<?= $row["id"]; ?>"><button type="button" class="btn btn-warning">Edit</button></a>
-                                    <a href="delete.php?id=<?= $row["id"]; ?>" onclick="return confirm('Yakin mau delete data?')"><button type="button" class="btn btn-danger">Delete</button></a>
+                                <td class="text-center"><?php echo $urut++; ?></td>
+                                <td><?php echo $row['nim']; ?></td>
+                                <td><?php echo $row['nama']; ?></td>
+                                <td><?php echo $row['alamat']; ?></td>
+                                <td><?php echo $row['fakultas']; ?></td>
+                                <td class="text-center btn-actions">
+                                    <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a href="delete.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau menghapus data?')">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
-
                 </table>
             </div>
         </div>
     </div>
+
+    <script src="../bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 </body>
 
 </html>
