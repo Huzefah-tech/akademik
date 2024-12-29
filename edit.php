@@ -2,27 +2,29 @@
 require 'functions.php';
 $id = $_GET['id'];
 
+// Ambil data mahasiswa berdasarkan id
 $mhs = query("SELECT * FROM mahasiswa WHERE id = $id")[0];
 
+// Proses edit data
 if (isset($_POST["submit"])) {
-
   if (edit($_POST) > 0) {
     echo "
 		<script>
-			alert('data berhasil diedit!');
+			alert('Data berhasil diedit!');
 			document.location.href = 'index.php';
 		</script>
 	";
   } else {
     echo "
 		<script>
-			alert('data gagal diedit!');
+			alert('Data gagal diedit!');
 			document.location.href = 'index.php';
 		</script>
 	";
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,39 +32,50 @@ if (isset($_POST["submit"])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Data Mahasiswa</title>
+  <link href="../bootstrap-5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Edit Data Mahasiswa</h1>
-  <a href="index.php"><button>Kembali</button></a>
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">Edit Data Mahasiswa</h1>
+    <a href="index.php" class="btn btn-secondary mb-3">Kembali</a>
 
-  <form action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?= $mhs['id']; ?>">
-    <!-- <input type="hidden" name="gambarLama" value="<?= $mhs['gambar']; ?>"> -->
-    <ul>
-      <li>
-        <label for="nama">nama : </label>
-        <input type="text" name="nama" id="nama" required value="<?= $mhs['nama']; ?>">
-      </li>
-      <li>
-        <label for="nim">nim : </label>
-        <input type="text" name="nim" id="nim" required value="<?= $mhs['nim']; ?>">
-      </li>
-      <li>
-        <label for="alamat">alamat : </label>
-        <input type="text" name="alamat" id="alamat" required value="<?= $mhs['alamat']; ?>">
-      </li>
-      <div class="col-sm-10">
-        <select class="form-control" name="fakultas" id="fakultas">
-          <option value="">- Pilih Fakultas -</option>
-          <option value="saintek" <?php if ($fakultas == "saintek") echo "selected" ?>>saintek</option>
-          <option value="soshum" <?php if ($fakultas == "soshum") echo "selected" ?>>soshum</option>
-        </select>
+    <div class="card">
+      <div class="card-body">
+        <form action="" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="<?= $mhs['id']; ?>">
+
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="nama" name="nama" required value="<?= $mhs['nama']; ?>">
+          </div>
+
+          <div class="mb-3">
+            <label for="nim" class="form-label">NIM</label>
+            <input type="text" class="form-control" id="nim" name="nim" required value="<?= $mhs['nim']; ?>">
+          </div>
+
+          <div class="mb-3">
+            <label for="alamat" class="form-label">Alamat</label>
+            <input type="text" class="form-control" id="alamat" name="alamat" required value="<?= $mhs['alamat']; ?>">
+          </div>
+
+          <div class="mb-3">
+            <label for="fakultas" class="form-label">Fakultas</label>
+            <select class="form-control" name="fakultas" id="fakultas">
+              <option value="">- Pilih Fakultas -</option>
+              <option value="saintek" <?= $mhs['fakultas'] == "saintek" ? "selected" : ""; ?>>Saintek</option>
+              <option value="soshum" <?= $mhs['fakultas'] == "soshum" ? "selected" : ""; ?>>Soshum</option>
+            </select>
+          </div>
+
+          <button type="submit" name="submit" class="btn btn-primary">Edit Data</button>
+        </form>
       </div>
-      <li>
-        <button type="submit" name="submit">Edit Data</button>
-      </li>
-  </form>
+    </div>
+  </div>
+
+  <script src="../bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
